@@ -1,0 +1,54 @@
+<div id="sidemenu_upper">
+</div>
+<div id="sidemenu_body">
+    <a href="#" class="closebtn" onclick="closeMenu()">닫기</a>
+    <table border="0">
+    <tr>
+        <td >
+            <div class="RoundedRectangleButton">
+                최근 본 게임
+            </div>
+        </td>
+        <td>
+            <div class="RoundedRectangleButton">
+                하고 싶은 게임
+            </div>
+        </td>
+    </tr>
+    <%
+    var item;
+    for(var i=0;i<5;i++){
+        item=rows[i];
+    %>
+    <tr>
+        <td rowspan="2">
+            <img style="width:20px; height: 30px;" src=<%=item.icon%>>
+        </td>
+        <td>
+            <span class="titleText" > <%=item.scoreText%> </span>
+        </td>
+        <td rowspan="2">
+            <div class="star-five FavoriteButton">
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td> <%=item.title%> </td>
+        <td></td>
+    </tr>
+    <%
+    }
+    %>
+    <tr>
+        <td>
+            <a href="/login">로그인 / 회원가입</a>
+        </td>
+        <td>
+            <a href="/gotchas">갓챠 검색</a>
+        </td>
+    </tr>
+    </table>
+</div>
+<div id="sidemenu_lower">
+</div>

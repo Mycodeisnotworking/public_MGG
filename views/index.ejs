@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset='utf-8'>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      이건 이후에 모바일용 페이지 만들 때 다시 봅시다.
+-->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/sidemenu.css' />
+    <link rel='stylesheet' href='/stylesheets/mainframe.css' />
+    <link rel='stylesheet' href='stylesheets/slick/slick.css' />
+    <link rel='stylesheet' href='stylesheets/slick/slick-theme.css' />
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="stylesheets/slick/slick.min.js"></script>
+  <!--  <script type="text/javascript" src='/javascripts/siteframe.js'></script>-->
+    <script type="text/javascript" src='/javascripts/sidemenu.js'></script> 
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('.slider').slick({
+        slidesToShow: 3,
+        dots: true,
+        infinite: false
+        //variableWidth: true
+      });
+
+      $('.slider4').slick({
+        slidesToShow: 4,
+        dots: true,
+        infinite: false
+      })
+    });
+    </script>
+    
+  </head>
+
+  <body>
+      <div class="itemPlace" style="text-align: right; font-size: 100%;">
+          
+      </div>
+    <div class="header" id="header" style="border-bottom: 1px solid black">
+        <div class="logoPlace" style="text-align: center;">
+            <a href="/" class="titleText" style="background-color: black; color: white; font-family: Helvetica;"> <img src="images/logo2.png" style="width: 100px; height: 100px;"> </a>
+        </div>
+        <div class="searchPlace">
+            <form action="/search" method="POST" style="padding: 10px;">
+                <input type="text" name="searchtext" id="searchtext" size="50" class="RoundedRectangleText" placeholder=" 어떤 게임을 찾으시나요?">
+                <input type="submit" name="searchbtn" id="searchbtn" value="검색" class="RoundedRectangleSearchBtn">
+            </form>
+        </div>
+        <div>
+            <div class="openmenu" onclick='openMenu()' style="position: absolute; right: 10%;">
+              <div style="width: 75px; height: 1px; background-color: black;"></div><span style="font-size: 4px;"><br></span>
+              <div style="width: 75px; height: 1px; background-color: black;"></div><span style="font-size: 4px;"><br></span>
+              <div style="width: 75px; height: 1px; background-color: black;"></div>          
+            </div>
+        </div>
+        <div class="sidemenu" id="sidemenu"><!--안에 내용 없다고 지우지 말 것!-->
+            <div id="sidemenu_upper">
+            </div>
+            <div id="sidemenu_body">
+                <a href="#" class="closebtn" style="color:cornflowerblue" onclick="closeMenu()">닫기</a>
+                <table border="0">
+                  <tr>
+                      <td >
+                          <div class="RoundedRectangleButton">
+                            최근 본 게임
+                          </div>
+                      </td>
+                      <td>
+                          <div class="RoundedRectangleButton">
+                              최근 본 게임
+                          </div>
+                      </td>
+                  </tr>
+                </table>
+                <%
+                var item;
+                for(var i=0;i<5;i++){
+                    item=rows[i];
+                %>
+                <div>
+                    <img src=<%=item.icon %> style="width: 50px; height: 50px;">
+                    
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    <span class="titlemin" style="color:cornflowerblue"> <%=item.scoreText%> </span>
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    <div class="FavoriteButton">
+                      <h1>★</h1>
+                    </div>
+                    <br>
+                    &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                    <span class="titlemin" style="color:cornflowerblue"><%=item.title%></span>
+                </div>
+                
+                <%
+                }
+                %>
+                <table border="0">
+                  <tr>
+                      <td>
+                          <a href="/login" style="font-size: 10px;" >로그인 / 회원가입</a></h3>
+                      </td>
+                      <td>
+                          <h3><a href="/gotchas" style="font-size: 10px;">갓챠 검색</a></h3>
+                      </td>
+                  </tr>
+                </table>
+            </div>
+            <div id="sidemenu_lower">
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="mainbody" id="mainbody">
+        <span class="mainSubtitle">모갓겜 게임성 top 5</span><br>
+        <hr style="color: black; border: thin solid;">
+        <section class="slider" style="width: 80%; left: 5%">
+          <%
+          var i=0;
+          item;
+          for(i=0;i<5;i++){
+            item=rows[i];
+          %>
+            <div class="card3" onclick="showDetails('<%= item.appid %>')" >
+              <div class="card3img">
+                <div class="cardImgDiv">
+                  <img src="images/star_empty.png" class="cardstar">
+                  <img src="<%=item.icon%>" class="card3img">    
+                </div>
+                <div class="cardTextDiv">
+                    <span class="titleText" style="color: black; "> <%= item.title%> </span><br>
+                    <span class="titleSubText">게임성</span><br>
+                    <div class="scorediv">
+                        <span class="scoreText"><%= item.scoreText%></span>
+                        <span style="color: #ff729a; font-size: 15px; text-align: right; font-weight: bold;">/30&nbsp;&nbsp;&nbsp;</span>    
+                    </div>
+                </div>
+              </div>
+            </div>
+            <%
+          }
+            %>
+        </section>
+
+      <div id="ValueofMoney">
+          <span class="mainSubtitle">모갓겜 갓성비 top 5</span><br>
+          <hr style="color: black; border: thin solid;">
+          <section class="slider" style="width: 80%; left: 5%">             
+              <%
+              for(i=5;i<10;i++){
+                item=rows[i];
+              %>
+              <div class="card3" onclick="showDetails('<%= item.appid %>')" >
+                  <div class="card3img">
+                    <div class="cardImgDiv">
+                      <img src="images/star_empty.png" class="cardstar">
+                      <img src="<%=item.icon%>" class="card3img">    
+                    </div>
+                    <div class="cardTextDiv">
+                        <span class="titleText" style="color: black; "> <%= item.title%> </span><br>
+                        <span class="titleSubText">게임성</span><br>
+                        <div class="scorediv">
+                            <span class="scoreText"><%= item.scoreText%></span>
+                            <span style="color: #ff729a; font-size: 15px; text-align: right; font-weight: bold;">/30</span>    
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <%
+              }
+                %>
+            </section>
+      </div>
+      <span class="mainSubtitle">모갓겜 매트릭스 별 분류</span><br>
+      <hr style="color: black; border: thin solid;">
+      <div id="evals">
+          
+      </div>
+      <div id="playstoreRank">
+          <span class="mainSubtitle">플레이 스토어 다운로드 순위</span><br>
+          <hr style="color: black; border: thin solid;">
+          <section class="slider4">
+              <%
+              for(i=10;i<15;i++){
+                item=rows[i];
+              %>
+                <div class="card4" onclick="showDetails('<%= item.appid %>')" >
+                  <img src=<%=item.icon %>><br>
+                  <span class="titleText"> <%= item.title%>  <%= item.scoreText%></span>
+                </div>
+                <%
+              }
+                %>
+            </section>
+      </div>
+      <div id="appStoreRank">
+          <span class="mainSubtitle">앱스토어 다운로드 순위</span><br>
+          <hr style="color: black; border: thin solid;">
+          <section class="slider4">
+              <%
+              for(i=15;i<20;i++){
+                item=rows[i];
+              %>
+                <div class="card4" onclick="showDetails('<%= item.appid %>')" >
+                  <img src=<%=item.icon %>><br>
+                  <span class="titleText"> <%= item.title%> </span><span class="scoreText"><%= item.scoreText%> </span>
+                </div>
+                <%
+              }
+                %>
+            </section>
+      </div>
+    </div>
+
+    <div class="footer" id="footer">
+      이용약관 / 개인정보처리방침 / 커뮤니티가이드 / 공지사항 / 고객문의 FAQ
+    </div>
+    <script type="text/javascript">
+    function showDetails(appId){
+      location.href="/review/"+appId;
+    }
+    </script>
+  </body>
+
+</html>

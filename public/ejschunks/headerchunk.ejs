@@ -1,0 +1,86 @@
+<div class="logoPlace" style="text-align: center;">
+    <a href="/" class="titleText"> Mobile Got Games </a>
+</div>
+<div class="searchPlace">
+    <form action="/search" method="POST" style="padding: 10px;">
+        <select id="searchtarget" name="searchtarget">
+            <option value='전체' selected>게임성</option>
+            <!--
+            <optgroup label='안드로이드'>
+                <option value='전체'>전체</option>
+                <option value='제목'></option>
+                <option value='작성자'>작성자</option>
+                <option value='제목+내용'>제목+내용</option>
+            </optgroup>
+            <optgroup label='ios'>
+                <option value='전체'>전체</option>
+                <option value='제목'>제목</option>
+                <option value='작성자'>작성자</option>
+                <option value='강사'>강사</option>
+                <option value='강의분류'>강의분류</option>
+                <option value='제목+내용'>제목+내용</option>
+            </optgroup>-->
+        </select>
+        <input type="text" name="searchtext" id="searchtext" size="50" class="RoundedRectangleText">
+    </form>
+</div>
+<div>
+    <span class="openmenu" onclick='openMenu()'><img src="images/Noru.jpg" style="height: 30px; width: 30px;"></span>
+</div>
+<div class="sidemenu" id="sidemenu"><!--안에 내용 없다고 지우지 말 것!-->
+    <div id="sidemenu_upper">
+    </div>
+    <div id="sidemenu_body">
+        <a href="#" class="closebtn" onclick="closeMenu()">닫기</a>
+        <table border="0">
+        <tr>
+            <td >
+                <div class="RoundedRectangleButton">
+                    최근 본 게임
+                </div>
+            </td>
+            <td>
+                <div class="RoundedRectangleButton">
+                    하고 싶은 게임
+                </div>
+            </td>
+        </tr>
+        <%
+        var item;
+        for(var i=0;i<5;i++){
+            item=rows[i];
+        %>
+        <tr>
+            <td rowspan="2">
+                <img src=<%=item.icon%>>
+            </td>
+            <td>
+                <span class="titleText"> <%=item.scoreText%> </span>
+            </td>
+            <td rowspan="2">
+                <div class="star-five FavoriteButton">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td> <%=item.title%> </td>
+            <td></td>
+        </tr>
+        <%
+        }
+        %>
+        <tr>
+            <td>
+                <a href="/login">로그인 / 회원가입</a>
+            </td>
+            <td>
+                <a href="/gotchas">갓챠 검색</a>
+            </td>
+        </tr>
+        </table>
+    </div>
+    <div id="sidemenu_lower">
+    </div>
+    
+</div>

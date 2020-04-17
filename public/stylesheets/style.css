@@ -1,0 +1,344 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800');
+/* 모든 페이지에 사용되는  클래스 */
+html, body{
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", 'Nanum Gothic', Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.mainbody{
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.mainSubtitle{
+  color: white;
+  background-color: black;
+  font-family:  "Lucida Grande", 'Nanum Gothic', Helvetica, Arial, sans-serif;
+  font-size: 30px;
+}
+
+.titleSubText{
+  font-family: "Lucida Grande", 'Nanum Gothic', Helvetica, Arial, sans-serif;
+  font-size: 30px;
+  background-color: black;
+  color: white;
+}
+
+.titleText{
+  font-family: "Lucida Grande", 'Nanum Gothic', Helvetica, Arial, sans-serif;
+  font-size: 16pt;
+  text-decoration: none;
+  color: black;
+}
+
+.scoreText{
+  font-family: "Lucida Grande", 'Nanum Gothic', Helvetica, Arial, sans-serif;
+  font-size: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #ff792a;
+}
+
+.scorediv{
+  text-align: right;
+  color: #ff792a;
+}
+
+.titlemin{
+  font-family: "Lucida Grande", 'Nanum Gothic', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  text-decoration: none;
+  color: black;
+}
+
+.numbermin{
+  font-family: "Lucida Grande", 'Nanum Gothic', Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.itemPlace{
+  text-align: right;
+  font-size: 100%;
+}
+
+.header{
+  border-bottom: 1px solid black;
+}
+
+.logoPlace{
+  text-align: center;
+}
+
+
+/* 일부 페이지에서 사용되는 클래스 */
+
+.cardImgDiv{
+  color: black;
+}
+
+.cardTextDiv{
+  font-family: "Lucida Grande", 'Nanum Gothic', Helvetica, Arial, sans-serif;
+}
+
+.cardstar{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.card3{
+  width: 200px;
+  height: 400px;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: relative;
+} 
+
+.card3img{
+  width: 90%;
+  height: 90%;
+  height: auto;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.card3text{
+  padding: 5px 10px;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  filter: alpha(opacity=70);
+  opacity: 0.7;
+	top: 100%;
+  left: 50%;
+  transform: translate( -50%, -50% );
+}
+.card4{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.card3 > img{
+  width: 100%;
+  height: 100%;
+}
+
+.card4 > img{
+  height: 15%;
+  width: 150px;
+}
+
+.FavoriteButton{
+  color: black;
+  display: inline-block;
+}
+
+.FavoriteButton:hover{
+  color: blue;
+}
+
+.RoundedRectangleText{
+  border-radius: 10px;
+  box-shadow: none !important;
+  border: 2px solid;
+  border-color: #ff792a;
+  background-color: white;
+}
+
+.RoundedRectangleButton{
+  display: block;
+  border-radius: 5px;
+  border: 5px solid black;
+  color: black;
+}
+
+.RoundedRectangleSearchBtn{
+  border-radius: 10px;
+  border: 0px;
+  border-color: #ff792a;
+  background-color: #ff792a;
+  color: white;
+}
+
+.bodytitle{
+  font-size: 30px;
+  display: block;
+  color:black;
+}
+
+.writeronlybtn{
+  visibility: hidden;
+  cursor: pointer;
+}
+
+.contentslayer1{
+  margin-left: 5%;
+}
+
+.contentslayer2{
+  margin-left: 25%;
+}
+
+.contentswrite{
+  width: 75%;
+  height: 500px;
+  resize:none; 
+  overflow-y:scroll;
+}
+
+.contentswrite_reply{
+  resize:none;
+  overflow-y:scroll;
+}
+
+.Wrapper{
+  width: 100%;
+  border: thin solid black 2px;
+
+}
+
+.reviewScreenshot{
+  border: thin solid black 2px;
+}
+
+.reviewGameInfo{
+  border: thin solid black 2px;
+  height: 700px;
+}
+
+.reviewGameBody{
+  border: thin solid black 2px;
+  height: 900px;
+}
+.reviewLeft{
+  width: 15%;
+  padding-top: 30px;
+  font-size: 20px;
+  float: left;
+  display: inline-flex;
+}
+
+.reviewRight{
+  width: 85%;
+  float: right;
+  display: inline-flex;
+  flex-direction: column;
+}
+.reviewTop{
+  padding: 30px 30px 30px 30px;
+}
+
+.reviewmidright{
+  width: 100%;
+}
+
+.reviewBottom{
+}
+
+.reviewUser{
+  border: thin solid black 2px;
+}
+
+.reviewUserContainer{
+  padding-left: 150px;
+  padding-top: 10px;
+  overflow: auto;
+  display: block;
+}
+
+.reviewInnerLeft{
+  float: left;
+}
+
+.reviewUserContents{
+  display: inline-block;
+  width: 700px;
+  padding-left: 30px;
+}
+
+.reviewUserEvaluation{
+  display: inline-block;
+}
+
+.reviewReply{
+  padding-left: 220px;
+}
+
+.spanclass4{
+}
+
+
+
+.reviewReceived{
+  border: thin solid black 2px;
+}
+
+.reviewGoogle{
+
+}
+
+.reviewApple{
+
+}
+
+.hexagram{
+  display: inline-block;
+  width: 300px;
+  padding-left: 30px;
+}
+
+.recommend{
+  display: inline-block;
+  width: 300px;
+}
+
+.totalScore{
+  display: inline-block;
+}
+.stargraph{
+  width: 210px;
+  height: 40px;
+  cursor: pointer;
+  display: block;
+  margin: 0px;
+  background-image: url('/images/star_empty.png');
+  background-repeat: repeat-x;
+}
+
+.stargraph span{
+  position: absolute;
+  float: left;
+  padding-left: 0px;
+  display: block;
+  width: 210px;
+  height: 40px;
+  background-image: url('/images/star.png');
+  background-repeat: repeat-x;
+}
+
+.stars{
+  width: 100%;
+  height: auto;
+}
+
+/* Pagination 관련 태그 */
+
+#paginationContainer{
+  padding-left: 150px;
+  padding-top: 10px;
+  overflow: auto;
+  display: block;
+  width: 1000px;
+  text-align: center;
+}

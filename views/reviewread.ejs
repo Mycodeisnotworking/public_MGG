@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset='utf-8'>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      이건 이후에 모바일용 페이지 만들 때 다시 봅시다.
+-->
+  </head>
+
+  <body>
+      <div class="itemPlace">
+          
+      </div>
+    <div class="header" id="header">
+        <div class="logoPlace">
+            <a href="/" class="titleText" style="background-color: black; color: white; font-family: Helvetica;"> <img src="/images/logo2.png" style="width: 100px; height: 100px;"> </a>
+        </div>
+        <div class="searchPlace">
+            <form action="/search" method="POST" style="padding: 10px;">
+                <input type="text" name="searchtext" id="searchtext" size="50" class="RoundedRectangleText" placeholder=" 어떤 게임을 찾으시나요?">
+                <input type="submit" name="searchbtn" id="searchbtn" value="검색" class="RoundedRectangleSearchBtn">
+            </form>
+        </div>
+        <div>
+            <div class="openmenu" onclick='openMenu()' style="position: absolute; right: 10%;">
+              <div style="width: 75px; height: 1px; background-color: black;"></div><span style="font-size: 4px;"><br></span>
+              <div style="width: 75px; height: 1px; background-color: black;"></div><span style="font-size: 4px;"><br></span>
+              <div style="width: 75px; height: 1px; background-color: black;"></div>          
+            </div>
+        </div>
+        <div class="sidemenu" id="sidemenu"><!--안에 내용 없다고 지우지 말 것!-->
+            <div id="sidemenu_upper">
+            </div>
+            <div id="sidemenu_body">
+                <a href="#" class="closebtn" style="color:cornflowerblue" onclick="closeMenu()">닫기</a>
+                <table border="0">
+                  <tr>
+                      <td >
+                          <div class="RoundedRectangleButton">
+                            최근 본 게임
+                          </div>
+                      </td>
+                      <td>
+                          <div class="RoundedRectangleButton">
+                              최근 본 게임
+                          </div>
+                      </td>
+                  </tr>
+                </table>
+                
+                <table border="0">
+                  <tr>
+                      <td>
+                          <a href="/login" style="font-size: 10px;" >로그인 / 회원가입</a></h3>
+                      </td>
+                      <td>
+                          <h3><a href="/gotchas" style="font-size: 10px;">갓챠 검색</a></h3>
+                      </td>
+                  </tr>
+                </table>
+            </div>
+            <div id="sidemenu_lower">
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="mainbody" id="mainbody">
+        <div class="reviewWrapper">
+            <div class="reviewScreenshot">
+            </div>
+            <div class="reviewGameInfo">
+                <div class="reviewLeft">
+                    게임정보<br><br>
+                    리뷰정보
+                </div>
+                <div class="reviewRight">
+                    <div class="reviewTop">
+                        <img src=<%=result_google.icon %> style="float: left; padding-right: 30px; width: 150px; height: 150px;">
+                        <span style="font-size: 25px;"> <%=result_google.title %> </span> &nbsp; &nbsp; &nbsp; &nbsp; 좋아요 수: <%=like_google[0].googlelike%>  &nbsp; &nbsp; <button id="reviewBtn" onclick="doReview();">리뷰하기 </button>
+                        <br><br>
+                        <%
+                            if(result_google.free){
+                        %>
+                        무료
+                        <%
+                            }
+                            else{
+                        %>
+                        유료
+                        <%
+                            }
+                        %>
+                         / <%=result_google.genre %> / 개발자: <%=result_google.developer %> / 개발사 홈페이지: <%=result_google.developerwebsite %><br>
+                    </div>
+                    
+                    <div class="reviewBottom" >
+                        <div class="hexagram">
+                            <!--
+                                6각 그래프 들어갈 자리
+                                지금은 텍스트로 대체
+                            -->
+                            <canvas id="hexagraph" width="450" height="400">
+                                <!--대체 컨텐츠(explore 9 이하 등 canvas 미지원 브라우저에서 표시되는 내용)-->
+                                게임성:<br>
+                                <span id="starBar_playability" class="stargraph">
+                                    <span></span>
+                                </span><br>
+                                디자인: <br>
+                                <span id="starBar_design" class="stargraph">
+                                    <span></span>
+                                </span><br>
+                                스토리: <br>
+                                <span id="starBar_story" class="stargraph">
+                                    <span></span>
+                                </span><br>
+                                사운드: <br>
+                                <span id="starBar_sound" class="stargraph">
+                                    <span></span>
+                                </span><br>
+                                과금성: <br>
+                                <span id="starBar_pay" class="stargraph">
+                                    <span></span>
+                                </span><br>
+                                창의성: <br>
+                                <span id="starBar_creativity" class="stargraph">
+                                    <span></span>
+                                </span><br>
+                            </canvas>
+                        </div>
+                        <div class="recommend">
+                            추천도: <%=result_google.scoretext %> / 5
+                            <br>
+                            <%
+                                for(var i =0;i<5;i++){
+                            %>
+                            <img src="/images/star.png">
+                            <%
+                                }
+                            %>
+                            <!-- 별 그림 추가 -->
+                        </div>
+                        <div class="totalScore">
+                            갓성비: <%=result_google.scoretext %> / 5
+                            <br>
+                            <%
+                                for(var i =0;i<5;i++){
+                            %>
+                            <img src="/images/star.png">
+                            <%
+                                }
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reviewUser">
+                <div class="reviewLeft" style="width:100%;">
+                    <span class="spanclass2">실사용자 리뷰</span>
+                </div>
+                <%
+                    var totalScore=0;
+                    for(var i=0;i<reviews_user.length;i++)
+                    {
+                        totalScore=reviews_user[i].playability;
+                        totalScore+=reviews_user[i].creativity;
+                        totalScore+=reviews_user[i].billingpromotion;
+                        totalScore+=reviews_user[i].design;
+                        totalScore+=reviews_user[i].story;
+                        totalScore+=reviews_user[i].sound;
+                        totalScore+=reviews_user[i].vfm;
+                        if(i<5)
+                        {
+                %>
+                <div id="reviewUserDiv<%= i %>" class="reviewUserContainer">
+                <%
+                    }
+                    else{
+                %>
+                <div id="reviewUserDiv<%= i %>" class="reviewUserContainer" style="display: none;">
+                <%
+                    }
+                %>
+                    <div class="reviewInnerLeft">
+                        <%
+                            if(reviews_user[i].userimage == null || !reviews_user[i].userimage)
+                            {
+                        %>
+                        <img src="/images/no_user_image.png" style="width: 100px; height: 150px;">
+                        <%
+                            }
+                            else
+                            {
+                        %>
+                        <img src="<%=reviews_user[i].userimage %>" style="width: 150px; height: 150px;">
+                        <%
+                            }
+                        %>
+                    </div>
+                    <div class="reviewInnerRight">
+                        <div class="reviewUserContents">
+                            <span class="spanclass2"> <%=reviews_user[i].nickname %> </span><br>
+                            <span class="spanclass4"> <%=reviews_user[i].review %></span><br>
+                        </div>
+                        <div class="reviewUserEvaluation">
+                            <span class="spanclass2">총점</span><br>
+                            <span class="spanclass4"><%=totalScore%></span>
+                        </div>
+                    </div>
+                    <%
+                        if(reviews_google[i].replytext != null){
+                    %>
+                    <div class="reviewReply">
+                        <br>
+                        <span class="spanclass4" style="display: inline-block; width: 600px;"> ▶<%=reviews_google[i].replytext%><br>
+                        <%=reviews_google[i].replydate%>
+                        </span>
+                    </div>
+                    <%
+                        }
+                    %>
+                </div>
+                <%
+                    }
+                %>
+                <div id="paginationContainer">
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true" style="border: thin solid 1px black">&laquo;</span>
+                    </a>&nbsp;
+                    <%
+                        var pageSize=5;
+                        var totalRows=reviews_user.length;
+                        var pages=Math.ceil(totalRows/pageSize);
+                        var max=5;
+                        if(max>pages){
+                            max=pages;
+                        }
+                        for(var idx=0;idx < max ;idx++){
+                    %>
+                    <a href="javascript:void(0)"  onclick="realUserReview.movePage('<%=idx%>')">
+                        <span  style="display: inline-block; border: 1px solid black; border-radius: 50%; width: 15px; text-align: center;" id="realUserPage<%=idx%>"> <%= 1 + idx%> </span>
+                    </a>&nbsp;
+                    <%
+                        }
+                    %>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>                
+                </div>
+            </div>
+            <div class="receivedReview">
+                <div class="reviewLeft">
+
+                </div>
+                <div class="reviewRight">
+                    <div class="reviewGoogle">
+
+                    </div>
+                    <div class="reviewApple">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviewUser">
+            <div class="reviewLeft" style="width:100%;">
+                <span class="spanclass2">구글 / 앱스토어 리뷰</span>
+            </div>
+            <%
+                for(var i=0;i<reviews_google.length;i++)
+                {
+                    if(i<5)
+                    {
+            %>
+            <div id="reviewgoogleappDiv<%= i %>" class="reviewUserContainer">
+            <%
+                }
+                else{
+            %>
+            <div id="reviewgoogleappDiv<%= i %>" class="reviewUserContainer" style="display: none;">
+            <%
+                }
+            %>
+                <div class="reviewInnerLeft"">
+                    <img src="<%= reviews_google[i].userimage %>" style="width: 150px; height: 150px;">
+                </div>
+                <div class="reviewInnerRight">
+                    <div class="reviewUserContents">
+                        <span class="spanclass2"> <%=reviews_google[i].username %> </span><br>
+                        <span class="spanclass4"> <%=reviews_google[i].reviewdate %> </span><br>
+                        <span class="spanclass4"> 버전: <%=reviews_google[i].version %> </span><br>
+                        <span class="spanclass4"> 좋아요: <%=reviews_google[i].thumbsup %> </span><br>
+                        <span class="spanclass4"> <%=reviews_google[i].title %></span><br>
+                        <span class="spanclass4"> <%=reviews_google[i].review %></span><br>
+                    </div>
+                    <div class="reviewUserEvaluation">
+                        <span class="spanclass2">총점</span><br>
+                        <span class="spanclass4"><%=reviews_google[i].scoretext %></span>
+                    </div>
+                </div>
+                <%
+                    if(reviews_google[i].replytext != null){
+                %>
+                <div class="reviewReply" style="padding-left: 220px;">
+                    <br>
+                    <span class="spanclass4" style="display: inline-block; width: 600px;"> ▶<%=reviews_google[i].replytext%><br>
+                    <%=reviews_google[i].replydate%>
+                    </span>
+                </div>
+                <%
+                    }
+                %>
+            </div>
+            <%
+                }
+            %>
+            <div id="paginationContainer">
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true" style="border: thin solid 1px black">&laquo;</span>
+                </a>&nbsp;
+                <%
+                    var pageSize=5;
+                    var totalRows=reviews_google.length;
+                    var pages=Math.ceil(totalRows/pageSize);
+                    for(var idx=0;idx<5;idx++){
+                %>
+                <a href="javascript:void(0)"  onclick="google_appReview.movePage('<%=idx%>')">
+                    <span  style="display: inline-block; border: 1px solid black; border-radius: 50%; width: 15px; text-align: center;" id="google_appStore_Page<%=idx%>"> <%= 1 + idx%> </span>
+                </a>&nbsp;
+                <%
+                    }
+                %>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>                
+            </div>
+        </div>
+        <div class="receivedReview">
+            <div class="reviewLeft">
+
+            </div>
+            <div class="reviewRight">
+                <div class="reviewGoogle">
+
+                </div>
+                <div class="reviewApple">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="footer" id="footer">
+      이용약관 / 개인정보처리방침 / 커뮤니티가이드 / 공지사항 / 고객문의 FAQ
+    </div>
+
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/sidemenu.css' />
+    <link rel='stylesheet' href='/stylesheets/mainframe.css' />
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+  <!--  <script type="text/javascript" src='/javascripts/siteframe.js'></script>-->
+    <script type="text/javascript" src='/javascripts/sidemenu.js'></script> 
+    <script type='text/javascript' src='/javascripts/pagination.js'></script>
+    <script type="text/javascript" src="/javascripts/hexagraph.js"></script>
+    <script type="text/javascript">
+    var realUserReview=new PageClass("reviewUserDiv", "realUserPage", '<%=reviews_google.length%>');
+    var google_appReview = new PageClass("reviewgoogleappDiv", "google_appStore_Page", '<%=reviews_google.length%>');
+    
+    function doReview(){
+        var appid= '<%=result_google.appid%>';
+        location.href = '/review/reviewwrite/'+appid;
+    }
+
+    var review = <%-JSON.stringify(reviews_user)%>;
+    if(review.length!=0){
+        var score=new Array();
+        for(var i=0;i<6;i++){
+            score.push(0);
+        }
+
+        for(var i=0;i<review.length;i++){
+            score[0]+=review[i].playability;
+            score[1]+=review[i].creativity;
+            score[2]+=review[i].billingpromotion;
+            score[3]+=review[i].design;
+            score[4]+=review[i].story;
+            score[5]+=review[i].sound;
+        }
+        
+        for(var i=0;i<6;i++){
+            score[i]= score[i]/review.length;
+            score[i]=score[i].toFixed(2);
+        }
+    }
+    else{
+        console.log("review가 없습니다");
+    }
+    window.onload=()=>{
+        var drawer=new graphDrawer("hexagraph", 260, 300, 100, 40, score);
+        drawer.draw();
+    }
+    </script>
+    
+  </body>
+
+</html>

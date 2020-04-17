@@ -1,0 +1,25 @@
+div.header{
+  color: cyan;
+  background-color: white;
+  font-size: 100%;
+  font-family: "Lucida Grande", 'Nanum Gothic', Helvetica, Arial, sans-serif;
+  display: grid;
+  grid-template-columns: 6fr 11fr 3fr;
+}
+
+div.mainbody{
+  color: black;
+  background-color: white;
+  font-size: 100%;
+  font-family:"Lucida Grande", 'Nanum Gothic', Helvetica, Arial, sans-serif;
+  text-align: left;
+}
+
+div.footer{
+  color: cyan;
+  background-color: white;
+  font-size: 100%;
+  font-family: "Lucida Grande", 'Nanum Gothic', Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset='utf-8'>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      이건 이후에 모바일용 페이지 만들 때 다시 봅시다.
+-->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/sidemenu.css' />
+    <link rel='stylesheet' href='/stylesheets/mainframe.css' />
+    <link rel='stylesheet' href='stylesheets/slick/slick.css' />
+    <link rel='stylesheet' href='stylesheets/slick/slick-theme.css' />
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="stylesheets/slick/slick.min.js"></script>
+  <!--  <script type="text/javascript" src='/javascripts/siteframe.js'></script>-->
+    <script type="text/javascript" src='/javascripts/sidemenu.js'></script> 
+    <script type="text/javascript">
+        $(()=>{
+          $("#loginbtn").on('click', ()=>{
+            var id=$("#login_id").val();
+            var passwd=$("#login_passwd").val();
+            
+            $.ajax({
+              url: '/login',
+              method: 'POST',
+              data: {id: id, passwd:passwd},
+              success: function(data){
+                if(data==true){
+                  location.replace('/');
+                }
+                else{
+                  alert("회원정보가 일치하지 않습니다");
+                  return;
+                }
+              },
+              error: function(data){
+                alert("예기치 못한 에러입니다. 관리자에게 문의해주세요.");
+                return;
+              }
+            })
+          });
+        });
+      </script>
+    
+  </head>
+
+  <body>
+      <div class="itemPlace" style="text-align: right; font-size: 100%;">
+          
+      </div>
+    <div class="header" id="header" style="border-bottom: 1px solid black">
+        <div class="logoPlace" style="text-align: center;">
+            <a href="/" class="titleText" style="background-color: black; color: white; font-family: Helvetica;"> <img src="images/logo2.png" style="width: 100px; height: 100px;"> </a>
+        </div>
+        <div class="searchPlace">
+            <form action="/search" method="POST" style="padding: 10px;">
+                <input type="text" name="searchtext" id="searchtext" size="50" class="RoundedRectangleText" placeholder=" 어떤 게임을 찾으시나요?">
+                <input type="submit" name="searchbtn" id="searchbtn" value="검색" class="RoundedRectangleSearchBtn">
+            </form>
+        </div>
+        <div>
+            <div class="openmenu" onclick='openMenu()' style="position: absolute; right: 10%;">
+              <div style="width: 75px; height: 1px; background-color: black;"></div><span style="font-size: 4px;"><br></span>
+              <div style="width: 75px; height: 1px; background-color: black;"></div><span style="font-size: 4px;"><br></span>
+              <div style="width: 75px; height: 1px; background-color: black;"></div>          
+            </div>
+        </div>
+        <div class="sidemenu" id="sidemenu"><!--안에 내용 없다고 지우지 말 것!-->
+            <div id="sidemenu_upper">
+            </div>
+            <div id="sidemenu_body">
+                <a href="#" class="closebtn" style="color:cornflowerblue" onclick="closeMenu()">닫기</a>
+                <table border="0">
+                  <tr>
+                      <td >
+                          <div class="RoundedRectangleButton">
+                            최근 본 게임
+                          </div>
+                      </td>
+                      <td>
+                          <div class="RoundedRectangleButton">
+                              최근 본 게임
+                          </div>
+                      </td>
+                  </tr>
+                </table>
+                <%
+                var item;
+                for(var i=0;i<5;i++){
+                    item=rows[i];
+                %>
+                <div>
+                    <img src=<%=item.icon %> style="width: 50px; height: 50px;">
+                    
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    <span class="titlemin" style="color:cornflowerblue"> <%=item.scoreText%> </span>
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    <div class="FavoriteButton">
+                      <h1>★</h1>
+                    </div>
+                    <br>
+                    &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                    <span class="titlemin" style="color:cornflowerblue"><%=item.title%></span>
+                </div>
+                
+                <%
+                }
+                %>
+                <table border="0">
+                  <tr>
+                      <td>
+                          <a href="/login" style="font-size: 10px;" >로그인 / 회원가입</a></h3>
+                      </td>
+                      <td>
+                          <h3><a href="/gotchas" style="font-size: 10px;">갓챠 검색</a></h3>
+                      </td>
+                  </tr>
+                </table>
+            </div>
+            <div id="sidemenu_lower">
+            </div>
+        </div>
+    </div>
+
+    <div class="mainbody" id="mainbody">
+        <table border="0" style="text-align: center; padding-left: 10%; padding-top: 5%;">
+                <tr>
+                    <td>아이디</td>
+                    <td><input type="text" id="login_id" name="login_id" size="20"></td>
+                </tr>
+                <tr>
+                    <td>패스워드</td>
+                    <td><input type="password" id="login_passwd" name="login_passwd" size="20"></td>
+                </tr>
+                <tr>
+                    <td><a href="register">회원가입</a></td>
+                    <td><a href="/">아이디 찾기</a>/<a href="/">비밀번호 찾기</a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button id="loginbtn">로그인</button>
+                    </td>
+                </tr>
+            </table>
+    </div>
+
+    <div class="footer" id="footer">
+      이용약관 / 개인정보처리방침 / 커뮤니티가이드 / 공지사항 / 고객문의 FAQ
+    </div>
+  </body>
+
+</html>

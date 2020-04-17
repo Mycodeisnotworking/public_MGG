@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset='utf-8'>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      이건 이후에 모바일용 페이지 만들 때 다시 봅시다.
+-->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/sidemenu.css' />
+    <link rel='stylesheet' href='/stylesheets/mainframe.css' />
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+  <!--  <script type="text/javascript" src='/javascripts/siteframe.js'></script>-->
+    <script type="text/javascript" src='/javascripts/sidemenu.js'></script> 
+    <script type="text/javascript" src='/node_modules/paginationjs/dist/pagination.js'></script>
+    <script type="text/javascript" src='/javascripts/starRating.js'></script>
+    
+  </head>
+
+  <body>
+      <div class="itemPlace">
+          
+      </div>
+    <div class="header" id="header">
+        <div class="logoPlace">
+            <a href="/" class="titleText" style="background-color: black; color: white; font-family: Helvetica;"> <img src="/images/logo2.png" style="width: 100px; height: 100px;"> </a>
+        </div>
+        <div class="searchPlace">
+            <form action="/search" method="POST" style="padding: 10px;">
+                <input type="text" name="searchtext" id="searchtext" size="50" class="RoundedRectangleText" placeholder=" 어떤 게임을 찾으시나요?">
+                <input type="submit" name="searchbtn" id="searchbtn" value="검색" class="RoundedRectangleSearchBtn">
+            </form>
+        </div>
+        <div>
+            <div class="openmenu" onclick='openMenu()' style="position: absolute; right: 10%;">
+              <div style="width: 75px; height: 1px; background-color: black;"></div><span style="font-size: 4px;"><br></span>
+              <div style="width: 75px; height: 1px; background-color: black;"></div><span style="font-size: 4px;"><br></span>
+              <div style="width: 75px; height: 1px; background-color: black;"></div>          
+            </div>
+        </div>
+        <div class="sidemenu" id="sidemenu"><!--안에 내용 없다고 지우지 말 것!-->
+            <div id="sidemenu_upper">
+            </div>
+            <div id="sidemenu_body">
+                <a href="#" class="closebtn" style="color:cornflowerblue" onclick="closeMenu()">닫기</a>
+                <table border="0">
+                  <tr>
+                      <td >
+                          <div class="RoundedRectangleButton">
+                            최근 본 게임
+                          </div>
+                      </td>
+                      <td>
+                          <div class="RoundedRectangleButton">
+                              최근 본 게임
+                          </div>
+                      </td>
+                  </tr>
+                </table>
+                
+                <table border="0">
+                  <tr>
+                      <td>
+                          <a href="/login" style="font-size: 10px;" >로그인 / 회원가입</a></h3>
+                      </td>
+                      <td>
+                          <h3><a href="/gotchas" style="font-size: 10px;">갓챠 검색</a></h3>
+                      </td>
+                  </tr>
+                </table>
+            </div>
+            <div id="sidemenu_lower">
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="mainbody" id="mainbody">
+        <div class="reviewWrapper">
+            <div class="reviewScreenshot">
+            </div>
+            <div class="reviewGameBody">
+                <div class="reviewLeft">
+                    게임정보<br><br>
+                    리뷰정보
+                </div>
+                <div class="reviewRight">
+                    <div class="reviewTop">
+                        <span style="font-size: 25px;"> <%=gametitle %> </span> &nbsp; &nbsp; &nbsp; &nbsp; 좋아요 수:<!-- 유저 리뷰에서 받아옴 -->
+                        <br>
+                        <span> 에 대한 솔직한 리뷰를 남겨주세요</span>
+                    </div>
+                    <div class="reviewmid">
+                        <div class="reviewmidleft">
+                            <img src="" style="border-radius: 50%;"><br>
+                            <!-- 이건 이후에 로그인 구현되면 ㄱㄱ-->
+                        </div>
+                        <div class="reviewmidright">
+                            총평<br>
+                            항목별 평가<br>
+                            게임성:<br>
+                            <span id="starBar_playability" class="stargraph">
+                                <span></span>
+                            </span>
+                            <br>디자인: <br>
+                            <span id="starBar_design" class="stargraph">
+                                <span></span>
+                            </span>
+                            <br>스토리: <br>
+                            <span id="starBar_story" class="stargraph">
+                                <span></span>
+                            </span>
+                            <br>사운드: <br>
+                            <span id="starBar_sound" class="stargraph">
+                                <span></span>
+                            </span>
+                            <br>과금성: <br>
+                            <span id="starBar_pay" class="stargraph">
+                                <span></span>
+                            </span>
+                            <br>창의성: <br>
+                            <span id="starBar_creativity" class="stargraph">
+                                <span></span>
+                            </span>
+                            <br><br>
+                            갓성비:<br>
+                            <span id="starBar_valueForMoney" class="stargraph">
+                                <span></span>
+                            </span>
+                            <br>
+                        </div>
+                    </div>
+                    
+                    <div class="reviewBottom" >
+                        평가 내용
+                        <form action="/review/reviewwrite" method ="POST">
+                            <input type="hidden" name="appid" id="appid" value= "<%= appid %>" >
+                            <input type="hidden" name="gametitle" id="gametitle" value= "<%=gametitle %>" >
+                            <input type="hidden" name="playability" id="playability" value=0>
+                            <input type="hidden" name="creativity" id="creativity" value=0>
+                            <input type="hidden" name="billingpromotion" id="billingpromotion" value=0>                           
+                            <input type="hidden" name="design" id="design" value=0>                           
+                            <input type="hidden" name="story" id="story" value=0>
+                            <input type="hidden" name="sound" id="sound" value=0>
+                            <input type="hidden" name="vfm" id="vfm" value=0>
+                            <input type="hidden" name="id" id="id" value="id2">
+                            <textarea name="reviewbody" cols="100" rows="15" style="resize: none;"></textarea><br>
+                            <button type="submit" value="제출하기">제출하기</button>
+                        </form>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+
+    <div class="footer" id="footer">
+      이용약관 / 개인정보처리방침 / 커뮤니티가이드 / 공지사항 / 고객문의 FAQ
+    </div>
+
+  </body>
+
+</html>
